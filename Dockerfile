@@ -11,7 +11,7 @@ COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 # Copy the rest of the app's files to the container
-COPY . .
+COPY . ./
 
 # Build the app
 RUN yarn build
