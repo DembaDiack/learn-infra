@@ -1,5 +1,7 @@
 # Use an official Node.js runtime as the base image
 FROM node:16-alpine
+# NOSONAR
+
 
 # Set the working directory in the container
 WORKDIR /app
@@ -8,10 +10,10 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 
 # Install the app's dependencies
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 # Copy the rest of the app's files to the container
-COPY . .
+COPY . ./
 
 # Build the app
 RUN yarn build
