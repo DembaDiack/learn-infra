@@ -38,4 +38,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository_owner.toLowerCase() }}/myapp:latest
+          tags: ghcr.io/dembadiack/myapp:latest
