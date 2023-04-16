@@ -3,6 +3,10 @@ name: deploy
 # run this github action on every push
 on: [push]
 
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
 #build and test the next.js project with yarn
 jobs:
   build-and-test:
@@ -25,6 +29,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-test
     steps:
+      - name: login to docker hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ env.DOCKER_HUB_USERNAME  }}
+          password: ${{ env.DOCKER_HUB_PASSWORD  }}
       - uses: actions/checkout@v2
       - name: Build and push Docker image
-        run: echo "build and contenize the app"
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: dembadiack/myapp:${{ github.sha }}
