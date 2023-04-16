@@ -19,3 +19,12 @@ jobs:
         run: yarn build
       - name: Test
         run: yarn test
+  containerize:
+    #run this only on main,develop and staging branches
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and push Docker image
+        run: echo "build and contenize the app"
