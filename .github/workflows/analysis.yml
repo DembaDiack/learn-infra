@@ -1,9 +1,5 @@
 name: analysis
-on:
-  pull_request:
-    branches:
-      - main
-    types: [opened, synchronize, reopened]
+on: [pull_request]
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
