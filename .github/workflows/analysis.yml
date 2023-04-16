@@ -1,9 +1,17 @@
 name: analysis
 on: [pull_request]
 jobs:
-  sonarcloud:
+  coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: SonarCloud Scan
-        run: echo "I am a step where i do sonarcloud things"
+
+      - run: npm install
+      - run: npm run coverage
+
+      - name: Test coverage check
+        uses: sergavshin/gha-test-coverage-check@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          min_threshold: '100'
+          report_file_path: './coverage/lcov.info'
