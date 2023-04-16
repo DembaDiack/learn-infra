@@ -1,10 +1,25 @@
-name: Hello World
+name: pipeline
 
+# run this github action on every push
 on: [push]
 
+#build and test the next.js project with yarn
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Hello World
-        run: echo "Hello World"
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test
+  
+
+
+   
