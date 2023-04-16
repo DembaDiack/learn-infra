@@ -5,10 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - run: npm install
-      - run: npm run coverage
-
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.x
+      - name: Install dependencies
+        run: yarn install
+      - name: Test
+        run: yarn test
       - name: Test coverage check
         uses: sergavshin/gha-test-coverage-check@v1
         with:
